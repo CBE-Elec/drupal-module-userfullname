@@ -1,0 +1,5 @@
+name: 'User Fullname'
+type: module
+description: 'Nom complet de l''utilisateur dans les fomulaires'
+core: 8.x
+package: 'Aquarius'

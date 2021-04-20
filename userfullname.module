@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Contains userfullname.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_help().
+ */
+function userfullname_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the userfullname module.
+    case 'help.page.userfullname':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Affiche le nom complet de l&#039;&#039;utilisateur dans les formulaires au lieu du username') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+function userfullname_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id)  {
+  if (array_key_exists('entity_id',$form)) {
+    // kint (array_key_exists('entity_id',$form));
+    // kint($form['entity_id']['widget']['#options']);
+    foreach ($form['entity_id']['widget']['#options'] as $key => $value) {
+      $account = User::load($key); // pass your uid
+      if ($account != NULL) {
+        $name=$account->get('field_nom')->getvalue()[0]['value'];
+        $forname=$account->get('field_prenom')->getvalue()[0]['value'];
+        $fullname = $forname." ".$name;
+        // kint($fullname);
+        $form['entity_id']['widget']['#options'][$key]=$fullname;
+      }
+    }
+    // Classement du tableau en fonction des noms complets (ordre alphabétique)
+    asort($form['entity_id']['widget']['#options']);
+  }
+}
