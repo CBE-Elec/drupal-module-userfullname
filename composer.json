@@ -1,0 +1,13 @@
+{
+    "name": "aquarius/userfullname",
+    "description": "Display prénom Nom of users instead of username",
+    "type": "drupal-custom-module",
+    "authors": [
+        {
+            "name": "Cyril Béguet",
+            "email": "webmaster.beguet@free.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
