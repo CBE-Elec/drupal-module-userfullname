@@ -41,6 +41,7 @@ function userfullname_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $f
       }
     }
     // Classement du tableau en fonction des noms complets (ordre alphabétique)
-    asort($form['entity_id']['widget']['#options']);
+    
+  if(isset($form['entity_id']['widget']['#options'])) asort($form['entity_id']['widget']['#options']);
   }
 }
